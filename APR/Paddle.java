@@ -1,4 +1,4 @@
-package paneltest;
+package Pong;
 
 import java.awt.Graphics;
 

@@ -1,4 +1,4 @@
-package paneltest;
+package Pong;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -17,41 +17,35 @@ public class Pong extends JComponent implements Runnable {
     private final int frame_height;
     private final int frame_width;
 
-    public Pong(Mylistener ml,int h,int w) {
+    public Pong(Mylistener ml,int h,int w, int paddleSize) {
         super();
-        startThread();
         this.ml = ml;
         this.frame_height = h;
-        this.frame_width = w;
+        this.frame_width = w; 
+        p1 = new Paddle(50, 275, 5, 1, new String[]{"w", "s"}, 10, paddleSize);
+        p2 = new Paddle(750, 275, 5, 2, new String[]{"i", "k"}, 10, paddleSize);
+        bl = new Ball(frame_height/2, frame_width/2, 10, 10, 2);
+        ml.setPaddles(p1, p2);
+        startThread();
     }
 
     public void startThread() {
         Thread t = new Thread(this);
         t.start();
-        System.out.print("Game Thread Started " + System.getProperty("line.separator"));
-    }
-
-    public void stop() {
-    }
-
-    public void destroy() {
+        System.out.println("Game Thread Started");
     }
 
     @Override
     public void run() {
-        p1 = new Paddle(50, 275, 5, 1, new String[]{"w", "s"}, 10, 50);
-        p2 = new Paddle(750, 275, 5, 2, new String[]{"i", "k"}, 10, 50);
-        bl = new Ball(getFrame_width(), getFrame_height(), 10, 10, 2);
-        ml.setPaddles(p1, p2);
-        while (true) {
-
+        
+        while (true) {  
+            
             p1.move();
             p2.move();
             bl.move(p1, p2);
             repaint();
-
             try {
-                Thread.sleep(25);
+                Thread.sleep(10);
             } catch (InterruptedException ex) {
                 System.out.println("InterruptedException: " + ex);
             }

@@ -1,4 +1,4 @@
-package paneltest;
+package Pong;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -17,7 +17,7 @@ public class Mylistener implements KeyListener{
         this.p2 = p2;
     }
     
-    public void move(KeyEvent e, Paddle p1, Paddle p2) {
+    public void move(KeyEvent e) {
         if (e.getKeyChar() == 'w') {
             p1.setUp(true);
         }
@@ -32,7 +32,7 @@ public class Mylistener implements KeyListener{
         }
     }
 
-    void stop(KeyEvent e, Paddle p1, Paddle p2) {
+    void stop(KeyEvent e) {
         if (e.getKeyChar() == 'w') {
             p1.setUp(false);
         }
@@ -53,11 +53,11 @@ public class Mylistener implements KeyListener{
 
     @Override 
     public void keyPressed(KeyEvent ke) {
-         move(ke, p1, p2);
+         move(ke);
     }
 
     @Override 
     public void keyReleased(KeyEvent ke) {
-        stop(ke, p1, p2);
+        stop(ke);
     }
 }
