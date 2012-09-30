@@ -1,11 +1,11 @@
-package Pong;
+package Pong.game;
 
 import java.awt.Graphics;
 
 public class Paddle {
 
-    int x;
-    int y;
+    private int x;
+    private int y;
     int player;
     String[] keys;
     private boolean up;
@@ -41,29 +41,30 @@ public class Paddle {
 
     public void move() {
         if (up == true) {
-            y -= speed;
+            setY(getY() - speed);
         }
         if (down == true) {
-            y += speed;
+            setY(getY() + speed);
         }
-        paddle = new int[]{x, y, x + width, y + height};
+        paddle = new int[]{getX(), getY(), getX() + getWidth(), getY() + getHeight()};
     }
 
-    public Boolean contact(int[] ball) {
-        if (checkSides(ball, paddle)) {
+    public boolean contact(int bx, int by) {
+        if (checkSides(bx , by , paddle)) {
             return true;
-        } else {
+        } else{
             return false;
         }
     }
 
-    private Boolean checkSides(int[] ball, int[] paddle) {
-        if (ball[1] >= paddle[1] && ball[3] <= paddle[3] && ball[0] >= paddle[0] && ball[2] <= paddle[2]) {
+    private boolean checkSides(int bx, int by, int[] paddle) {
+        if (by >= paddle[1] && by <= paddle[3] && bx >= paddle[0] && bx <= paddle[2]) {
             return true;
         }
-        if (ball[3] >= paddle[1] && ball[1] <= paddle[3] && ball[2] >= paddle[0] && ball[0] <= paddle[2]) {
+        if (by >= paddle[1] && by <= paddle[3] && bx >= paddle[0] && bx <= paddle[2]) {
             return true;
         }
+        
         return false;
     }
 
@@ -122,5 +123,61 @@ public class Paddle {
      */
     public void setScore(int score) {
         this.score = score;
+    }
+
+    /**
+     * @return the height
+     */
+    public int getHeight() {
+        return height;
+    }
+
+    /**
+     * @param height the height to set
+     */
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    /**
+     * @return the width
+     */
+    public int getWidth() {
+        return width;
+    }
+
+    /**
+     * @param width the width to set
+     */
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    /**
+     * @return the x
+     */
+    public int getX() {
+        return x;
+    }
+
+    /**
+     * @param x the x to set
+     */
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    /**
+     * @return the y
+     */
+    public int getY() {
+        return y;
+    }
+
+    /**
+     * @param y the y to set
+     */
+    public void setY(int y) {
+        this.y = y;
     }
 }

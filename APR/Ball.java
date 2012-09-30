@@ -1,4 +1,4 @@
-package Pong;
+package Pong.game;
 
 import java.awt.Graphics;
 
@@ -6,66 +6,80 @@ public class Ball {
 
     private int x;
     private int y;
+    private int drawx;
+    private int drawy;
     private int height;
     private int width;
-    private int[] ball;
-     /* ball[]
-     *      [0] x top side
-     *      [1] y left side
-     *      [2] x bottom side
-     *      [3] y right side
-    */
-    private int volx;
-    private int voly;
+    private double volx;
+    private double voly;
     private int speed = 2;
-    double angle;
 
     public Ball(int x, int y, int width, int height, int vol) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.ball = new int[] {x,y,x+width,y+height};
         this.volx = vol;
         this.voly = vol;
     }
 
     public void move(Paddle p1, Paddle p2) {
 
-        if (p2.contact(ball) == true) {
-            volx = -volx;
-        } else if (p1.contact(ball) == true) {
-            volx = -volx;
+        boolean p1con = p1.contact(x, y);
+        boolean p2con = p2.contact(x, y);;
+
+        if (p2con) {
+            bounce(p2);
+            volx = -(Math.abs(volx));
+        } else if (p1con) {
+            bounce(p1);
+            volx = (Math.abs(volx));
         }
 
-        if (ball[3] >= 580) {
-            voly = -voly;
-        } else if (ball[1] <= 0) {
-            voly = -voly;
+        if (y >= 580) {
+            voly = -(Math.abs(voly));
+        } else if (y <= 0) {
+            voly = (Math.abs(voly));
         }
+
+
         x += volx;
         y += voly;
 
-        int b = outOfBounds(p1,p2);
+        int b = outOfBounds(p1, p2);// score thing
         if (b != -1) {
             x = 400;
             y = 300;
-            if(b == 1){
-                p1.setScore(p1.getScore()+1);
-            }else if(b == 2){
-                p2.setScore(p2.getScore()+1);
+            if (b == 1) {
+                p1.setScore(p1.getScore() + 1);
+            } else if (b == 2) {
+                p2.setScore(p2.getScore() + 1);
             }
         }
-        
-        ball = new int[] {x,y,x + width,y + height};
+        drawx = x - (height / 2);
+        drawy = y - (height / 2);
 
+    }
+
+    private void bounce(Paddle p) {
+        int contactPoint = (p.getY() + (p.getHeight() / 2)) - y;
+        if (contactPoint > (p.getY() + (p.getHeight() / 3)) && contactPoint < (p.getY() + (2 * (p.getHeight() / 3)))) {
+            voly--;
+            volx++;
+            if (voly < 0) {
+                voly = 0;
+            }
+        } else {
+            voly++;
+        }
+        System.out.println("y: "+voly+" x: "+volx);
     }
 
     private int outOfBounds(Paddle p1, Paddle p2) {
         if (this.x > 800 || this.x < 0) {
-            if(this.x > 800){
+            if (this.x > 800) {
                 return 1;
-            }else if(this.x < 0){
+            } else if (this.x < 0) {
                 return 2;
             }
         }
@@ -73,7 +87,7 @@ public class Ball {
     }
 
     public void paint(Graphics g) {
-        g.fillRect(x, y, width, height);
+        g.fillRect(drawx, drawy, width, height);
     }
 
 //////////////////////////////gettas and settas//////////////////////////////////////////////////////
@@ -108,28 +122,28 @@ public class Ball {
     /**
      * @return the volx
      */
-    public int getVolx() {
+    public double getVolx() {
         return volx;
     }
 
     /**
      * @param volx the volx to set
      */
-    public void setVolx(int volx) {
+    public void setVolx(double volx) {
         this.volx = volx;
     }
 
     /**
      * @return the voly
      */
-    public int getVoly() {
+    public double getVoly() {
         return voly;
     }
 
     /**
      * @param voly the voly to set
      */
-    public void setVoly(int voly) {
+    public void setVoly(double voly) {
         this.voly = voly;
     }
 

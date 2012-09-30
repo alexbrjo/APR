@@ -1,19 +1,22 @@
-package Pong;
+package Pong.game;
 
-import Pong.gui.SettingsGUI;
 import java.awt.Color;
 import javax.swing.JFrame;
 
 public class Launch {
 
-    private final int frame_height = 600;
-    private final int frame_width = 800;
+    private int frame_height = 600;
+    private int frame_width = 800;
+    
     JFrame frame;
-    SettingsGUI settingsGUI;
-    Mylistener ml = new Mylistener();
+    Paddlelistener pl = new Paddlelistener();
+    Settingslistener sl = new Settingslistener(this);
+    FrameListener fl = new FrameListener(this);
+    Pong game;
+    
     private Boolean twoPlayer = true;
     private int scoreToWin = 10;
-    private int paddleSize = 50;
+    private int paddleSize = 100;
     private Color color1 = Color.WHITE;
     private Color color2 = Color.WHITE;
 
@@ -22,30 +25,29 @@ public class Launch {
     }
 
     public Launch() {
-        frame = new JFrame("Pong");        
-        frame.setBounds(0, 0, frame_width, frame_height);
-        doIt("gui");
+        doIt("pong");
     }
 
     public void doIt(String to) {
-        frame.dispose();
-        frame = new JFrame("Pong"); 
+        frame = new JFrame("Pong");        
+        frame.setBounds(0, 0, frame_width, frame_height);
         frame.getContentPane().removeAll();
-
-        if (to.equals("gui")) {
-            settingsGUI = new SettingsGUI(this);
-            frame.add(settingsGUI);
-        } else if (to.equals("pong")) {
             
-            frame.addKeyListener(ml);
-            frame.add(new Pong(ml, frame_width, frame_height, paddleSize));
-        }
+        frame.addKeyListener(pl);
+        frame.addKeyListener(sl);        
+        frame.addComponentListener(fl);
+        game = new Pong(pl, getFrame_width(), getFrame_height(), paddleSize);
+        frame.add(game);
         
         frame.setVisible(true);
-        frame.setSize(800, 600);
+        frame.setSize(frame_width, frame_height);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+    }
+    
+    public void pause(){
+        game.setRun(!game.getRun());
     }
 
     public void setDefaults() {
@@ -126,4 +128,35 @@ public class Launch {
     public void setColor2(Color color2) {
         this.color2 = color2;
     }
+
+    /**
+     * @return the frame_height
+     */
+    public int getFrame_height() {
+        return frame_height;
+    }
+
+    /**
+     * @param frame_height the frame_height to set
+     */
+    public void setFrame_height(int frame_height) {
+        this.frame_height = frame_height;
+    }
+
+    /**
+     * @return the frame_width
+     */
+    public int getFrame_width() {
+        return frame_width;
+    }
+
+    /**
+     * @param frame_width the frame_width to set
+     */
+    public void setFrame_width(int frame_width) {
+        this.frame_width = frame_width;
+    }
+
+
 }
+
