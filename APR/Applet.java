@@ -9,9 +9,7 @@ public class Applet extends JApplet {
 
     private int frame_height = 600;
     private int frame_width = 800;
-    
-    Paddlelistener pl = new Paddlelistener();
-    Settingslistener sl = new Settingslistener(this);
+    Listener l = new Listener();
     Pong game;
     
     private Boolean twoPlayer = true;
@@ -20,20 +18,19 @@ public class Applet extends JApplet {
     private Color color1 = Color.WHITE;
     private Color color2 = Color.WHITE;
      
-    public void init() {
+   @Override
+   public void init() {
         this.setSize(frame_width, frame_height);
         this.setBounds(0, 0, frame_width, frame_height);
         this.getContentPane().removeAll();
             
-        this.addKeyListener(pl);
-        this.addKeyListener(sl);
-        game = new Pong(pl, getFrame_width(), getFrame_height(), paddleSize);
+        game = new Pong(getFrame_width(), getFrame_height(), paddleSize, l);
         this.add(game);
         
         this.setVisible(true);
         this.setSize(frame_width, frame_height);
-        //this.setResizable(false);
-       // this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      //this.setResizable(false);
+      //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
  

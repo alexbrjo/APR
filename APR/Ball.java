@@ -13,20 +13,24 @@ public class Ball {
     private double volx;
     private double voly;
     private int speed = 2;
+    private int FRAME_HEIGHT;
+    private int FRAME_WIDTH;
 
-    public Ball(int x, int y, int width, int height, int vol) {
+    public Ball(int x, int y, int width, int height, int vol, int FRAME_WIDTH, int FRAME_HEIGHT) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.volx = vol;
         this.voly = vol;
+        this.FRAME_WIDTH = FRAME_WIDTH;
+        this.FRAME_HEIGHT = FRAME_HEIGHT;
     }
 
-    public void move(Paddle p1, Paddle p2) {
+    public void move(Paddle p1, Paddle p2){
 
         boolean p1con = p1.contact(x, y);
-        boolean p2con = p2.contact(x, y);;
+        boolean p2con = p2.contact(x, y);
 
         if (p2con) {
             bounce(p2);
@@ -72,14 +76,14 @@ public class Ball {
         } else {
             voly++;
         }
-        System.out.println("y: "+voly+" x: "+volx);
+        System.out.println("Vol:"+(Math.abs(voly)+Math.abs(volx))+" y: "+voly+" x: "+volx);
     }
 
     private int outOfBounds(Paddle p1, Paddle p2) {
-        if (this.x > 800 || this.x < 0) {
-            if (this.x > 800) {
+        if (this.x  > FRAME_WIDTH || this.x < 0) {
+            if (this.x > FRAME_WIDTH) {
                 return 1;
-            } else if (this.x < 0) {
+            } else if (this.x + 10 < 0) {
                 return 2;
             }
         }

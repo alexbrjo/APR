@@ -23,8 +23,10 @@ public class Paddle {
     private int width;
     private int speed;
     private int score;
+    private int FRAME_HEIGHT;
+    private int FRAME_WIDTH;
 
-    Paddle(int x, int y, int speed, int player, String[] keys, int width, int height) {
+    Paddle(int x, int y, int speed, int player, String[] keys, int width, int height, int FRAME_WIDTH, int FRAME_HEIGHT) {
         this.x = x;
         this.y = y;
         this.player = player;
@@ -33,6 +35,8 @@ public class Paddle {
         this.height = height;
         this.speed = speed;
         this.paddle = new int[]{x, y, x + width, y + height};
+        this.FRAME_WIDTH = FRAME_WIDTH;
+        this.FRAME_HEIGHT = FRAME_HEIGHT;
     }
 
     public void paint(Graphics g) {
@@ -40,19 +44,19 @@ public class Paddle {
     }
 
     public void move() {
-        if (up == true) {
+        if (up == true && getY() > 0) {
             setY(getY() - speed);
         }
-        if (down == true) {
+        if (down == true && getY() < (FRAME_HEIGHT - height)) {
             setY(getY() + speed);
         }
         paddle = new int[]{getX(), getY(), getX() + getWidth(), getY() + getHeight()};
     }
 
     public boolean contact(int bx, int by) {
-        if (checkSides(bx , by , paddle)) {
+        if (checkSides(bx, by, paddle)) {
             return true;
-        } else{
+        } else {
             return false;
         }
     }
@@ -64,7 +68,7 @@ public class Paddle {
         if (by >= paddle[1] && by <= paddle[3] && bx >= paddle[0] && bx <= paddle[2]) {
             return true;
         }
-        
+
         return false;
     }
 
@@ -179,5 +183,19 @@ public class Paddle {
      */
     public void setY(int y) {
         this.y = y;
+    }
+
+    /**
+     * @return the FRAME_HEIGHT
+     */
+    public int getFRAME_HEIGHT() {
+        return FRAME_HEIGHT;
+    }
+
+    /**
+     * @return the FRAME_WIDTH
+     */
+    public int getFRAME_WIDTH() {
+        return FRAME_WIDTH;
     }
 }

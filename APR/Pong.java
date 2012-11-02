@@ -1,35 +1,34 @@
 package Pong.game;
 
-import com.sun.tools.apt.Main;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import javax.media.j3d.Clip;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 
 public class Pong extends JComponent implements Runnable {
-
+    
     Image bacon;
     Graphics dbg;
-    Paddlelistener pl;
+    Listener l;
+    boolean pause;
     Paddle p1;
     Paddle p2;
     Ball bl;
     private Boolean run = true;
-    private int frame_height;
-    private int frame_width;
+    private final int FRAME_HEIGHT;
+    private final int FRAME_WIDTH;
 
-    public Pong(Paddlelistener pl, int h, int w, int paddleSize) {
+    public Pong(int w, int h, int paddleSize, Listener l) {
         super();
-        this.pl = pl;
-        this.frame_height = h;
-        this.frame_width = w;
-        p1 = new Paddle(50, 275, 5, 1, new String[]{"w", "s"}, 10, paddleSize);
-        p2 = new Paddle(750, 275, 5, 2, new String[]{"i", "k"}, 10, paddleSize);
-        bl = new Ball(getFrame_height() / 2, getFrame_width() / 2, 10, 10, 2);
-        pl.setPaddles(p1, p2);
+        this.FRAME_WIDTH = w;
+        this.FRAME_HEIGHT = h;
+        this.l = l;
+        p1 = new Paddle(50, 275, 5, 1, new String[]{"w", "s"}, 10, paddleSize, getFRAME_WIDTH(), getFRAME_HEIGHT());
+        p2 = new Paddle(750, 275, 5, 2, new String[]{"i", "k"}, 10, paddleSize, getFRAME_WIDTH(), getFRAME_HEIGHT());
+        bl = new Ball(getFRAME_WIDTH() / 2, getFRAME_HEIGHT() / 2, 10, 10, 2, getFRAME_WIDTH(), getFRAME_HEIGHT());
+        l.setPaddles(p1, p2);
         startThread();
     }
 
@@ -59,8 +58,8 @@ public class Pong extends JComponent implements Runnable {
             } else {
                 repaint();
             }
-
-
+            
+            setRun(!l.isPause());
 
             try {
                 Thread.sleep(10);
@@ -75,7 +74,7 @@ public class Pong extends JComponent implements Runnable {
     public void paint(Graphics g) {
 
         g.setColor(Color.BLACK);
-        g.fillRect(0, 0, getFrame_height(), getFrame_width());
+        g.fillRect(0, 0, getFRAME_WIDTH(), getFRAME_HEIGHT());
 
         for (int j = 10; j < 610; j += 40) {
             g.setColor(Color.WHITE);
@@ -114,41 +113,23 @@ public class Pong extends JComponent implements Runnable {
         g.drawImage(bacon, 0, 0, this);
 
     }
+    
 //////////////////////////////////////////////////////////////////////////////////////////
 
-    public int getFrame_height() {
-        return frame_height;
-    }
-
-    public int getFrame_width() {
-        return frame_width;
-    }
-
-    /**
-     * @return the run
-     */
     public Boolean getRun() {
         return run;
     }
 
-    /**
-     * @param run the run to set
-     */
     public void setRun(Boolean run) {
         this.run = run;
     }
 
-    /**
-     * @param frame_height the frame_height to set
-     */
-    public void setFrame_height(int frame_height) {
-        this.frame_height = frame_height;
+    public int getFRAME_HEIGHT() {
+        return FRAME_HEIGHT;
     }
 
-    /**
-     * @param frame_width the frame_width to set
-     */
-    public void setFrame_width(int frame_width) {
-        this.frame_width = frame_width;
+    public int getFRAME_WIDTH() {
+        return FRAME_WIDTH;
     }
+
 }
