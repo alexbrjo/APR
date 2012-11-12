@@ -1,4 +1,4 @@
-package Pong.game;
+package co.alexjo.pong;
 
 import java.awt.Color;
 import java.awt.Graphics;

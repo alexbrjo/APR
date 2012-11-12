@@ -1,4 +1,4 @@
-package Pong.game;
+package co.alexjo.pong;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
