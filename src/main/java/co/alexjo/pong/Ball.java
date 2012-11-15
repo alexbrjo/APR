@@ -27,7 +27,7 @@ public class Ball {
         this.FRAME_HEIGHT = FRAME_HEIGHT;
     }
 
-    public void move(Paddle p1, Paddle p2){
+    public void move(Paddle p1, Paddle p2) throws Exception{
 
         boolean p1con = p1.contact(x, y);
         boolean p2con = p2.contact(x, y);
@@ -41,8 +41,10 @@ public class Ball {
         }
 
         if (y >= 580) {
+            Audio.wall();
             voly = -(Math.abs(voly));
         } else if (y <= 0) {
+            Audio.wall();
             voly = (Math.abs(voly));
         }
 
@@ -52,6 +54,7 @@ public class Ball {
 
         int b = outOfBounds(p1, p2);// score thing
         if (b != -1) {
+            Audio.goal();
             x = 400;
             y = 300;
             if (b == 1) {
@@ -65,7 +68,8 @@ public class Ball {
 
     }
 
-    private void bounce(Paddle p) {
+    private void bounce(Paddle p) throws Exception {
+        Audio.hit();
         int contactPoint = (p.getY() + (p.getHeight() / 2)) - y;
         if (contactPoint > (p.getY() + (p.getHeight() / 3)) && contactPoint < (p.getY() + (2 * (p.getHeight() / 3)))) {
             voly--;

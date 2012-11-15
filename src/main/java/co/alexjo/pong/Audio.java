@@ -11,9 +11,9 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Audio { 
     
-    Clip goal;
-    Clip hit;
-    Clip wall;
+    static Clip goal;
+    static Clip hit;
+    static Clip wall;
 
     public Audio() throws Exception {
         goal = makeClip(getClass().getResourceAsStream("/huh.wav"));
@@ -43,13 +43,16 @@ public class Audio {
         return clip;
     }
     
-    public void goal(){
-        goal.start();
+    public static void goal() throws Exception{
+        Audio a = new Audio();
+        a.goal.start();
     }
-    public void hit(){
-        hit.start();
+    public static void hit() throws Exception{
+        Audio a = new Audio();
+        a.hit.start();
     }
-    public void wall(){
-        wall.start();
+    public static void wall() throws Exception{
+        Audio a = new Audio();
+        a.wall.start();
     }
 }

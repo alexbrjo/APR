@@ -52,7 +52,11 @@ public class Pong extends JComponent implements Runnable {
 
                 p1.move();
                 p2.move();
-                bl.move(p1, p2);
+                try {
+                    bl.move(p1, p2);
+                } catch (Exception ex) {
+                    Logger.getLogger(Pong.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 repaint();
 
             } else {
