@@ -1,4 +1,4 @@
-package co.alexjo.pong;
+/*package co.alexjo.pong;
 
 import java.awt.Color;
 import javax.swing.JApplet;
@@ -48,105 +48,69 @@ public class Applet extends JApplet {
     }
 
 //////////////////////////////////////////////////////////////////////////////////////////
-    /**
-     * @return the twoPlayer
-     */
     public Boolean getTwoPlayer() {
         return twoPlayer;
     }
 
-    /**
-     * @param twoPlayer the twoPlayer to set
-     */
     public void setTwoPlayer(Boolean twoPlayer) {
         this.twoPlayer = twoPlayer;
     }
 
-    /**
-     * @return the scoreToWin
-     */
     public int getScoreToWin() {
         return scoreToWin;
     }
 
-    /**
-     * @param scoreToWin the scoreToWin to set
-     */
     public void setScoreToWin(int scoreToWin) {
         this.scoreToWin = scoreToWin;
     }
 
-    /**
-     * @return the paddleSize
-     */
     public int getPaddleSize() {
         return paddleSize;
     }
 
-    /**
-     * @param paddleSize the paddleSize to set
-     */
     public void setPaddleSize(int paddleSize) {
         this.paddleSize = paddleSize;
     }
 
-    /**
-     * @return the color1
-     */
     public Color getColor1() {
         return color1;
     }
 
-    /**
-     * @param color1 the color1 to set
-     */
+
     public void setColor1(Color color1) {
         this.color1 = color1;
     }
 
-    /**
-     * @return the color2
-     */
+
     public Color getColor2() {
         return color2;
     }
 
-    /**
-     * @param color2 the color2 to set
-     */
     public void setColor2(Color color2) {
         this.color2 = color2;
     }
 
-    /**
-     * @return the frame_height
-     */
+
     public int getFrame_height() {
         return frame_height;
     }
 
-    /**
-     * @param frame_height the frame_height to set
-     */
+
     public void setFrame_height(int frame_height) {
         this.frame_height = frame_height;
     }
 
-    /**
-     * @return the frame_width
-     */
+
     public int getFrame_width() {
         return frame_width;
     }
 
-    /**
-     * @param frame_width the frame_width to set
-     */
+
     public void setFrame_width(int frame_width) {
         this.frame_width = frame_width;
     }
 
 
 }
-
+*/
 

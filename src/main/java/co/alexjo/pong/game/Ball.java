@@ -1,5 +1,6 @@
-package co.alexjo.pong;
+package co.alexjo.pong.game;
 
+import co.alexjo.pong.audio.Sound;
 import java.awt.Graphics;
 
 public class Ball {
@@ -13,21 +14,17 @@ public class Ball {
     private double volx;
     private double voly;
     private int speed = 2;
-    private int FRAME_HEIGHT;
-    private int FRAME_WIDTH;
 
-    public Ball(int x, int y, int width, int height, int vol, int FRAME_WIDTH, int FRAME_HEIGHT) {
+    public Ball(int x, int y, int width, int height, int vol) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.volx = vol;
         this.voly = vol;
-        this.FRAME_WIDTH = FRAME_WIDTH;
-        this.FRAME_HEIGHT = FRAME_HEIGHT;
     }
 
-    public void move(Paddle p1, Paddle p2) throws Exception{
+    public void move(Paddle p1, Paddle p2){
 
         boolean p1con = p1.contact(x, y);
         boolean p2con = p2.contact(x, y);
@@ -41,10 +38,10 @@ public class Ball {
         }
 
         if (y >= 580) {
-            Audio.wall();
+            Pong.playSound(Sound.PING);
             voly = -(Math.abs(voly));
         } else if (y <= 0) {
-            Audio.wall();
+            Pong.playSound(Sound.PING);
             voly = (Math.abs(voly));
         }
 
@@ -54,7 +51,7 @@ public class Ball {
 
         int b = outOfBounds(p1, p2);// score thing
         if (b != -1) {
-            Audio.goal();
+            Pong.playSound(Sound.DING);
             x = 400;
             y = 300;
             if (b == 1) {
@@ -68,8 +65,8 @@ public class Ball {
 
     }
 
-    private void bounce(Paddle p) throws Exception {
-        Audio.hit();
+    private void bounce(Paddle p){
+        Pong.playSound(Sound.DING);
         int contactPoint = (p.getY() + (p.getHeight() / 2)) - y;
         if (contactPoint > (p.getY() + (p.getHeight() / 3)) && contactPoint < (p.getY() + (2 * (p.getHeight() / 3)))) {
             voly--;
@@ -84,8 +81,8 @@ public class Ball {
     }
 
     private int outOfBounds(Paddle p1, Paddle p2) {
-        if (this.x  > FRAME_WIDTH || this.x < 0) {
-            if (this.x > FRAME_WIDTH) {
+        if (this.x  > Pong.FRAME_WIDTH || this.x < 0) {
+            if (this.x > Pong.FRAME_WIDTH) {
                 return 1;
             } else if (this.x + 10 < 0) {
                 return 2;
@@ -99,72 +96,33 @@ public class Ball {
     }
 
 //////////////////////////////gettas and settas//////////////////////////////////////////////////////
-    /**
-     * @return the x
-     */
     public int getX() {
         return x;
     }
-
-    /**
-     * @param x the x to set
-     */
     public void setX(int x) {
         this.x = x;
     }
-
-    /**
-     * @return the y
-     */
     public int getY() {
         return y;
     }
-
-    /**
-     * @param y the y to set
-     */
     public void setY(int y) {
         this.y = y;
     }
-
-    /**
-     * @return the volx
-     */
     public double getVolx() {
         return volx;
     }
-
-    /**
-     * @param volx the volx to set
-     */
     public void setVolx(double volx) {
         this.volx = volx;
     }
-
-    /**
-     * @return the voly
-     */
     public double getVoly() {
         return voly;
     }
-
-    /**
-     * @param voly the voly to set
-     */
     public void setVoly(double voly) {
         this.voly = voly;
     }
-
-    /**
-     * @return the speed
-     */
     public int getSpeed() {
         return speed;
     }
-
-    /**
-     * @param speed the speed to set
-     */
     public void setSpeed(int speed) {
         this.speed = speed;
     }

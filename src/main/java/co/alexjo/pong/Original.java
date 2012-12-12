@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
-public class Pong_1 extends Applet implements Runnable, KeyListener {
+public class Original extends Applet implements Runnable, KeyListener {
 
     static Image bacon;
     static Graphics dbg;
@@ -61,7 +61,11 @@ public class Pong_1 extends Applet implements Runnable, KeyListener {
     Font kitty = new Font("Book Antiqua", Font.PLAIN, 200);
     Font kitten = new Font("Book Antiqua", Font.PLAIN, 12);
 
-    public Pong_1() {
+    public static void main(String arg[]){
+        new Original();
+    }
+    
+    public Original() {
         super();
     }
 
